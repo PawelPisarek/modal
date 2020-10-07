@@ -1,7 +1,7 @@
 <div class="modal" role="dialog"
      aria-labelledby="Modal_Title" aria-describedby="Modal_Description" aria-hidden="true" style="display: flex">
   <div class="modal-content">
-    <h2 id="Modal_Title">Czy chcesz się zalogować {{value}}? </h2>
+    <h2 id="Modal_Title">Czy chcesz się zalogować {{value?.username}}? </h2>
     <button class="close-modal" (click)="close(true)">tak</button>
     <button class="close-modal" (click)="close(false)">nie</button>
   </div>

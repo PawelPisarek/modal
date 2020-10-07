@@ -1,30 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ModalService} from '../modal.service';
 import {LoginModalComponent} from '../login-modal/login-modal.component';
-import {Observable} from 'rxjs';
+import {Observable, timer} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  constructor(private modalService: ModalService<any, any, Observable<boolean>>) {
-  }
-
-  ngOnInit(): void {
-
+  constructor(private modalService: ModalService<LoginModalComponent, LoginModalComponent, Observable<boolean>, { username: string }>) {
   }
 
   login(loginForm: { username: string }): void {
-    const componentRef = this.modalService.open({component: LoginModalComponent});
-    console.log(componentRef);
-    // setTimeout(() => {
-    componentRef.afterClosed().subscribe(asd => {
-      console.log(asd);
+    const componentRef = this.modalService.open({component: LoginModalComponent, value: loginForm});
+    // setTimeout(()=>{
+    timer(1,100).pipe(tap(aasd=>{
+      console.log(aasd);
+      componentRef.modalRef.changeDetectorRef.detectChanges();
+    }))
+    // },1);
+    componentRef.afterClosed().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        alert('zalogowano');
+      }
     });
-    // });
-    console.log(componentRef);
   }
 }

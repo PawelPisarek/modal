@@ -1,21 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./login-modal.component.scss']
 })
-export class LoginModalComponent implements OnInit {
-
+export class LoginModalComponent {
   value: { username: string };
   destroyCallback: (value?) => void;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
   close(decision: boolean): void {
     this.destroyCallback(decision);
   }

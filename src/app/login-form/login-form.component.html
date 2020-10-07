@@ -1,6 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <label for="username">Username</label>
+  <label for="username" [ngClass]="{ 'is-invalid': f.username.errors }">Username</label>
   <input type="text" id="username"
-         formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': f.username.errors }" />
-  <button type="submit">zaloguj się</button>
+         formControlName="username" />
+  <button type="submit" [disabled]="loginForm.invalid">zaloguj się</button>
 </form>
